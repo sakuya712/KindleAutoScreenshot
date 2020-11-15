@@ -1,0 +1,2 @@
+# KindleAutoScreenshot
+キンドルのスクリーンショットを自動化するソフト
