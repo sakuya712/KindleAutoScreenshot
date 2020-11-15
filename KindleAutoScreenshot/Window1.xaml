@@ -1,0 +1,22 @@
+﻿<Window x:Class="KindleAutoScreenshot.CaptureAreaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KindleAutoScreenshot"
+        mc:Ignorable="d"
+        Title="SelectWindow" Height="450" Width="800"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="true"
+        WindowState="Maximized"
+        >
+    <Grid>
+        <Canvas Name="SelectAreaCanvas" 
+                Background="Azure" Opacity="0.2"
+                MouseLeftButtonDown="SelectAreaCanvas_MouseLeftButtonDown"
+                MouseMove="SelectAreaCanvas_MouseMove"
+                MouseLeftButtonUp="SelectAreaCanvas_MouseLeftButtonUp"
+                MouseLeave="SelectAreaCanvas_MouseLeave"/>
+    </Grid>
+</Window>
