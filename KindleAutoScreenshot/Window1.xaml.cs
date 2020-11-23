@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
 
 namespace KindleAutoScreenshot
 {
@@ -19,107 +20,165 @@ namespace KindleAutoScreenshot
     /// </summary>
     public partial class CaptureAreaWindow : Window
     {
+        //選択用のThumb
+        private Thumb SelectArea;
+        //マウスカーソルの形を矢印に変更する範囲
+        private const double PaddingRegion = 10;
+        //直前の横幅変化量を記録
+        private double ChangedHorizontal;
+        //直前の縦幅変化量を記録
+        private double ChangedVertical;
         public CaptureAreaWindow()
         {
             InitializeComponent();
-            //カーソルを十字にする
-            Cursor = Cursors.Cross;
+
+            // 選択用のThumbを作成する
+            SelectArea = new Thumb( );
+            SelectArea.Width = 500;
+            SelectArea.Height = 500;
+            SelectArea.Background = Brushes.DarkRed;
+            SelectArea.Opacity = 0.5;
+            SelectArea.MouseMove += SelectArea_MouseMove;
+            SelectArea.DragDelta += SelectArea_DragDelta;
+            SelectArea.DragCompleted += SelectArea_DragCompleted;
+            Canvas.SetLeft(SelectArea, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 2 - SelectArea.Width / 2 );
+            Canvas.SetTop(SelectArea, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 2 - SelectArea.Height / 2);
+            SelectAreaCanvas.Children.Add(SelectArea);
+
+            //選択完了ボタンを作成
+            Button SelectedButton = new Button();
+            SelectedButton.Content = "選択範囲決定";
+            SelectedButton.FontSize = 20;
+            SelectedButton.Height = 100;
+            SelectedButton.Width = 200;
+            SelectedButton.Opacity = 1;
+            Canvas.SetLeft(SelectedButton, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 2 - SelectedButton.Width / 2);
+            Canvas.SetTop(SelectedButton, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 2 - SelectedButton.Height / 2);
+            SelectedButton.Click += SelectedButton_Click;
+            SelectAreaCanvas.Children.Add(SelectedButton);
         }
-        //最初の座標
-        private Point StartPos;
-        //最後の座標
-        private Point EndPos;
-        //大きさ
+
+        //範囲大きさ
         public int XSize { get; private set; }
         public int YSize { get; private set; }
-        public int StartPosX { get { return Convert.ToInt32(StartPos.X); } }
-        public int StartPosY { get { return Convert.ToInt32(StartPos.Y); } }
-        public int EndPosX { get { return Convert.ToInt32(EndPos.X); } }
-        public int EndPosY { get { return Convert.ToInt32(EndPos.Y); } }
+        //範囲の座標
+        public int StartPosX { get; private set; }
+        public int StartPosY { get; private set; }
+        public int EndPosX { get; private set; }
+        public int EndPosY { get; private set; }
 
-        //ドラッグ判定
-        private bool IsDrag;
-        //前回の描写
-        private UIElement LastElement;
-
-        //左クリックしたときのイベント
-        private void SelectAreaCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //選択完了ボタンを押したとき
+        void SelectedButton_Click(Object sender, EventArgs e)
         {
-            //現在の座標を取得
-            Canvas c = sender as Canvas;
-            this.StartPos = e.GetPosition(c);
-            this.IsDrag = true;
-        }
-        //マウスが移動しているときのイベント
-        private void SelectAreaCanvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (IsDrag)
-            {
-                //マウスの現在位置を取得
-                Point point = e.GetPosition(SelectAreaCanvas);
-                //描写の処理
-                //RectangleView(point);
-            }
-        }
-        //左クリックを離したときのイベント
-        private void SelectAreaCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (IsDrag)
-            {
-                //現在の座標を取得
-                Canvas c = sender as Canvas;
-                this.EndPos = e.GetPosition(c);
-                this.IsDrag = false;
-                XSize = Convert.ToInt32(Math.Abs(StartPos.X - EndPos.X));
-                YSize = Convert.ToInt32(Math.Abs(StartPos.Y - EndPos.Y));
-                this.Close();
-            }
+            StartPosX = Convert.ToInt32(Canvas.GetLeft(SelectArea));
+            StartPosY = Convert.ToInt32(Canvas.GetTop(SelectArea));
+            EndPosX = StartPosX + Convert.ToInt32(SelectArea.Width);
+            EndPosY = StartPosY + Convert.ToInt32(SelectArea.Height);
+            XSize = Convert.ToInt32(SelectArea.Width);
+            YSize = Convert.ToInt32(SelectArea.Height);
+            this.Close();
         }
 
-        private void RectangleView(Point Pos)
+        //マウス移動しているときのイベント
+        //ここでマウスカーソルのアイコンを変える
+        private void SelectArea_MouseMove(object sender, MouseEventArgs e)
         {
-            //前回の描写を消す
-            try
+            Point p = e.GetPosition(SelectAreaCanvas);
+            double left = Canvas.GetLeft(SelectArea);
+            double top = Canvas.GetTop(SelectArea);
+            double width = SelectArea.Width;
+            double height = SelectArea.Height;
+            if (p.X > left + width - PaddingRegion && p.Y > top + height - PaddingRegion)
             {
-                SelectAreaCanvas.Children.Remove(LastElement);
+                //右下にあるときは斜め下の矢印
+                SelectArea.Cursor = Cursors.SizeNWSE;
             }
-            catch
+            else if (p.X > left + width - PaddingRegion)
             {
-                //なにもしない
+                //右側にあるときは左右の矢印
+                SelectArea.Cursor = Cursors.SizeWE;
             }
-            Rectangle rectangle = new Rectangle();
-            //枠線
-            rectangle.Stroke = new SolidColorBrush(Colors.Red);
-            rectangle.StrokeThickness = 5;
-            //座標
-            rectangle.Width = Math.Abs(StartPos.X - Pos.X);
-            rectangle.Height = Math.Abs(StartPos.Y - Pos.Y);
-
-            //SelectAreaCanvasに追加する座標を決める
-            if (StartPos.X < Pos.X)
+            else if (p.Y > top + height - PaddingRegion)
             {
-                Canvas.SetLeft(rectangle, StartPos.X);
+                //下側にあるときは上下の矢印
+                SelectArea.Cursor = Cursors.SizeNS;
             }
             else
             {
-                Canvas.SetLeft(rectangle, Pos.X);
+                //該当しない場合は普通のカーソル
+                SelectArea.Cursor = Cursors.Arrow;
             }
-            if (StartPos.Y < Pos.Y)
-            {
-                Canvas.SetTop(rectangle, StartPos.Y);
-            }
-            else
-            {
-                Canvas.SetTop(rectangle, Pos.Y);
-            }
-            //要素を追加する
-            SelectAreaCanvas.Children.Add(rectangle);
-            LastElement = rectangle;
         }
 
-        private void SelectAreaCanvas_MouseLeave(object sender, MouseEventArgs e)
+        //ドラッグ中のイベント
+        //SelectArea_MouseMoveで変えたカーソルの種類に応じてドラッグの処理を行う
+        private void SelectArea_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            this.IsDrag = false;
+            //カーソルの形で判定
+            if (SelectArea.Cursor == Cursors.SizeWE)
+            {
+                //左右
+                ChangeWidthSize();
+            }
+            else if (SelectArea.Cursor == Cursors.SizeNS)
+            {
+                //上下
+                ChangeHeightSize();
+            }
+            else if (SelectArea.Cursor == Cursors.SizeNWSE)
+            {
+                //斜め
+                ChangeWidthSize();
+                ChangeHeightSize();
+            }
+            else if (SelectArea.Cursor == Cursors.Arrow)
+            {
+                //通常のカーソル
+                //ドラッグ移動
+                Canvas.SetLeft(SelectArea, Canvas.GetLeft(SelectArea) + e.HorizontalChange);
+                Canvas.SetTop(SelectArea, Canvas.GetTop(SelectArea) + e.VerticalChange);
+            }
+
+            //左右のサイズを変化する処理
+            void ChangeWidthSize()
+            {
+                double w = SelectArea.Width + e.HorizontalChange - ChangedHorizontal;
+                //小さくなりすぎないようにする
+                if(PaddingRegion > w)
+                {
+                    ChangedHorizontal = 0;
+                }
+                else
+                {
+                    SelectArea.Width = w;
+                    //変化量を記録
+                    ChangedHorizontal = e.HorizontalChange;
+                }
+            }
+            //上下のサイズを変化する処理
+            void ChangeHeightSize()
+            {
+                double h = SelectArea.Height + e.VerticalChange - ChangedVertical;
+                //小さくなりすぎないようにする
+                if (PaddingRegion > h)
+                {
+                    ChangedVertical = 0;
+                }
+                else
+                {
+                    SelectArea.Height = h;
+                    //変化量を記録
+                    ChangedVertical = e.VerticalChange;
+                }
+            }
+
+        }
+        //ドラッグが終了したときのイベント
+        //変更量を0にする。
+        private void SelectArea_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            ChangedHorizontal = 0;
+            ChangedVertical = 0;
         }
     }
 }
