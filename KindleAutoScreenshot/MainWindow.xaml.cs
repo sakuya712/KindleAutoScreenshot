@@ -78,6 +78,7 @@ namespace KindleAutoScreenshot
                 }
             }
             this.WindowState = WindowState.Normal;
+            this.Activate();
             System.Windows.MessageBox.Show("処理が完了しました");
         }
 
