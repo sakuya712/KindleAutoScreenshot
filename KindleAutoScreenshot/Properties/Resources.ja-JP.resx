@@ -118,39 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HowToUse" xml:space="preserve">
-    <value>How to use :</value>
+    <value>使い方 :</value>
   </data>
   <data name="HowToUse1" xml:space="preserve">
-    <value>1. Launch Kindle for PC</value>
+    <value>1. Kindle for PCを起動する</value>
   </data>
   <data name="HowToUse2" xml:space="preserve">
-    <value>2. Decide where to save the file</value>
+    <value>2. 保存場所を決める</value>
   </data>
   <data name="HowToUse3" xml:space="preserve">
-    <value>3. Full screen display</value>
+    <value>3. 全画面表示にする</value>
   </data>
   <data name="HowToUse4" xml:space="preserve">
-    <value>4. Decide the range to take a screenshot</value>
+    <value>4. スクリーンショットを取る範囲を決める</value>
   </data>
   <data name="HowToUse5" xml:space="preserve">
-    <value>5. Decide the number of pages</value>
+    <value>5. ページ数を決める</value>
   </data>
   <data name="HowToUse6" xml:space="preserve">
-    <value>6. Run</value>
+    <value>6. 実行</value>
   </data>
   <data name="HowToUse7" xml:space="preserve">
-    <value>7. Wait for a message</value>
+    <value>7. メッセージが出るまで待つ</value>
   </data>
   <data name="HowToUse8" xml:space="preserve">
-    <value>8. Done</value>
+    <value>8. 完了</value>
   </data>
   <data name="RangeButton" xml:space="preserve">
-    <value>Range select</value>
+    <value>範囲指定</value>
   </data>
   <data name="ReferenceButton" xml:space="preserve">
-    <value>Browse...</value>
+    <value>参照...</value>
   </data>
   <data name="RunButton" xml:space="preserve">
-    <value>Run</value>
+    <value>実行</value>
   </data>
 </root>

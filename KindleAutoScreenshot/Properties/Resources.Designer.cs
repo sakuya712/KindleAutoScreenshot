@@ -3,67 +3,168 @@
 //     このコードはツールによって生成されました。
 //     ランタイム バージョン:4.0.30319.42000
 //
-//     このファイルへの変更は、正しくない動作の原因になったり、
-//     コードが再生成されるときに失われたりします。
+//     このファイルへの変更は、以下の状況下で不正な動作の原因になったり、
+//     コードが再生成されるときに損失したりします。
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
-namespace KindleAutoScreenshot.Properties
-{
+namespace KindleAutoScreenshot.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
     /// </summary>
-    // このクラスは StronglyTypedResourceBuilder クラスによって ResGen
+    // このクラスは StronglyTypedResourceBuilder クラスが ResGen
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
-    // ResGen を実行し直すか、または VS プロジェクトをリビルドします。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    public class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
-        ///   このクラスで使用されるキャッシュされた ResourceManager インスタンスを返します。
+        ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        public static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("KindleAutoScreenshot.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   すべてについて、現在のスレッドの CurrentUICulture プロパティをオーバーライドします
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        public static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   How to use : に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse {
+            get {
+                return ResourceManager.GetString("HowToUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   1. Launch Kindle for PC に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse1 {
+            get {
+                return ResourceManager.GetString("HowToUse1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   2. Decide where to save the file に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse2 {
+            get {
+                return ResourceManager.GetString("HowToUse2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   3. Full screen display に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse3 {
+            get {
+                return ResourceManager.GetString("HowToUse3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   4. Decide the range to take a screenshot に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse4 {
+            get {
+                return ResourceManager.GetString("HowToUse4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   5. Decide the number of pages に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse5 {
+            get {
+                return ResourceManager.GetString("HowToUse5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   6. Run に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse6 {
+            get {
+                return ResourceManager.GetString("HowToUse6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   7. Wait for a message に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse7 {
+            get {
+                return ResourceManager.GetString("HowToUse7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   8. Done に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HowToUse8 {
+            get {
+                return ResourceManager.GetString("HowToUse8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Range select に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RangeButton {
+            get {
+                return ResourceManager.GetString("RangeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Browse... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ReferenceButton {
+            get {
+                return ResourceManager.GetString("ReferenceButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Run に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RunButton {
+            get {
+                return ResourceManager.GetString("RunButton", resourceCulture);
             }
         }
     }
