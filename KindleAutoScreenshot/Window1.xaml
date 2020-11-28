@@ -13,10 +13,6 @@
         >
     <Grid>
         <Canvas Name="SelectAreaCanvas" 
-                Background="Azure" Opacity="0.2"
-                MouseLeftButtonDown="SelectAreaCanvas_MouseLeftButtonDown"
-                MouseMove="SelectAreaCanvas_MouseMove"
-                MouseLeftButtonUp="SelectAreaCanvas_MouseLeftButtonUp"
-                MouseLeave="SelectAreaCanvas_MouseLeave"/>
+                Background="Azure" Opacity="0.2"/>
     </Grid>
 </Window>
